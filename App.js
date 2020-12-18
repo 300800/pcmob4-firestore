@@ -1,13 +1,21 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+import LoginScreen from ""
+
+
+const Stack = createStackNavigator() 
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Let's get started on Firebase</Text>
-      <StatusBar style="auto" />
-    </View>
+  return (    
+    <NavigationContainer>
+      <Stack.Screen component={LoginScreen} name="Login" />
+      <Stack.Screen component={ChatScreen} name="Chat" />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
