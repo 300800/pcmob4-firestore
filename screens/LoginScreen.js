@@ -1,21 +1,59 @@
 import React from "react";
-import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Keyboard,
+} from "react-native";
+import firebase from "../database/firebaseDB";
+
+const auth = firebase.auth();
 
 export default function LoginScreen({ navigation }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorText, setErrorText] = useState("");
+
+  function login() {
+    Keyboard.dismiss();
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        console.log("Signed in!");
+        navigation.navigate("Chat");
+      })
+      .catch((error) => {
+        console.log("Error!");
+        console.log(error.message);
+        setErrorText(error.message);
+      });
+  }
+
   return (
-    <View>
-      <Text style={StyleSheet.title}>Chat App</Text>
-      <Text style={StyleSheet.fieldTitle}>Email</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Chat App</Text>
+      <Text style={styles.fieldTitle}>Email</Text>
       <TextInput
-        style={Styles.input}
+        style={styles.input}
         autoCapitalize="none"
         autoCompleteType="email"
+        autoCorrect={false}
+        keyboardType="email-address"
+        value={email}
+        onChangeText={(input) => setEmail(input)}
       />
-      <Text style={Style.fieldTitle}>Password</Text>
+      <Text style={styles.fieldTitle}>Password</Text>
       <TextInput
         style={styles.input}
         autoCapitalize="none"
         autoCompleteType="password"
+        autoCorrect={false}
+        secureTextEntry={true}
+        value={password}
+        onChangeText={(input) => setPassword(input)}
       />
       <TouchableOpacity onPress={null} style={styles.loginButton}>
         <Text style={styles.buttonText}>Log in</Text>
