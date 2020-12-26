@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -23,7 +23,7 @@ export default function LoginScreen({ navigation }) {
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         console.log("Signed in!");
-        navigation.navigate("Chat");
+        //navigation.navigate("Chat");
       })
       .catch((error) => {
         console.log("Error!");
@@ -55,9 +55,10 @@ export default function LoginScreen({ navigation }) {
         value={password}
         onChangeText={(input) => setPassword(input)}
       />
-      <TouchableOpacity onPress={null} style={styles.loginButton}>
+      <TouchableOpacity onPress={login} style={styles.loginButton}>
         <Text style={styles.buttonText}>Log in</Text>
       </TouchableOpacity>
+      <Text style={styles.errorText}>{errorText}</Text>
     </View>
   );
 }
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 24,
   },
-  titles: {
+  title: {
     fontSize: 36,
     fontWeight: "bold",
     marginBottom: 24,
@@ -84,5 +85,23 @@ const styles = StyleSheet.create({
     padding: 4,
     height: 36,
     fontSize: 18,
+    backgroundColor: "white",
+  },
+  loginButton: {
+    backgroundColor: "blue",
+    width: 120,
+    alignItems: "center",
+    padding: 18,
+    marginTop: 12,
+    marginBottom: 36,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  errorText: {
+    color: "red",
+    height: 40,
   },
 });
