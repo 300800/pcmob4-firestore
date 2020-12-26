@@ -19,7 +19,6 @@ export default function App() {
           name="Login"
           options={{ headerShown: false }}
         />
-        <Stack.Screen component={ChatScreen} name="Chat" />
       </Stack.Navigator>
     </NavigationContainer>
   );
