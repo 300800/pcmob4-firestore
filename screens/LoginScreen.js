@@ -10,8 +10,9 @@ import {
 } from "react-native";
 import firebase from "../database/firebaseDB";
 
-const db = firebase.firestore();
 const auth = firebase.auth();
+
+//const db = firebase.firestore();
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
